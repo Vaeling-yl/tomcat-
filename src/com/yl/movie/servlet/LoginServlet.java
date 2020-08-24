@@ -12,10 +12,10 @@ public class LoginServlet extends HttpServlet{
 
 	@Override
 	public void doPost(ServletRequest request, ServletResponse response) {
-		System.out.println("id="+request.getParameter("id"));
 		System.out.println("name="+request.getParameter("name"));
+		System.out.println("pwd="+request.getParameter("pwd"));
 		
-		response.sendRediret("/movie/WebContent/index.html");
+		response.sendRediret("WebContent/index.html");
 
 	}
 }

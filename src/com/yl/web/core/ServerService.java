@@ -44,31 +44,31 @@ public class ServerService implements Runnable {
 		String url = request.getUrl();
 		
 		String urlStr = url.substring(1);
-		System.out.println(url + "----------------url");
-		String projectName = urlStr.substring(0,url.indexOf("/"));
+		System.out.println(urlStr + "----------------urlStr");
+		String projectName = urlStr.substring(0,urlStr.indexOf("/"));
+		System.out.println(projectName + "----------------projectName");
 		
-		ServletResponse response = new HttpServletResponse(os);
+		ServletResponse response = new HttpServletResponse("/"+ projectName,os);
 		
 		//是不是动态资源地址
-		String clazz = ParseUrlPattern.getClass(url);
+		String clazz = ParseUrlPattern.getClass(url);//如果能取到处理类，则说明是动态资源
 		System.out.println(clazz +"-----------clazz");
-		if (clazz == null || "".equals(clazz) ) {
+		if (clazz == null || "".equals(clazz) ) {//当静态资源访问
 			response.sendRediret(url);
 			return;
 		}
 		
 		/**
-		 * 
+		 * 处理动态资源
+		 * 我的规则：所有的动态资源处理代码-》servlet代码必须放到当前项目下的bin目录
 		 */
-		URLClassLoader loader = null;//
-		URL classPath = null;//
-		//
-		System.out.println(projectName + "----------------projectName");
+		URLClassLoader loader = null;//类加载器
+		URL classPath = null;//要加载的这个类的地址
 		
 		try {
 			classPath = new URL("file",null,TomcatConstants.BASE_PATH+"\\"+ projectName +"\\bin");
 		
-			//
+			//创建一个类加载器，告诉它到这个路径下加载类
 			loader = new URLClassLoader(new URL[] {classPath});
 			
 			//

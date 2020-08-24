@@ -20,7 +20,7 @@ public class HttpServletResponse implements ServletResponse {
 	
 	
 
-	public HttpServletResponse(OutputStream os, String projectName) {
+	public HttpServletResponse( String projectName,OutputStream os) {
 		this.os = os;
 		this.projectName = projectName;
 	}
@@ -43,8 +43,10 @@ public class HttpServletResponse implements ServletResponse {
 			error404(url);
 			return;
 		}
+		
 		if (!url.startsWith(projectName)) {//
 			url = projectName +"/" + url;
+			System.out.println(url + "--------------url1");
 		}
 		
 		if (url.indexOf("/") == url.lastIndexOf("/") && url.indexOf("/") < url.length()) {

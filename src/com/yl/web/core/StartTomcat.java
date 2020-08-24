@@ -18,7 +18,6 @@ public class StartTomcat {
 	@SuppressWarnings("resource")
 	private void start() throws IOException {
 			int port = Integer.parseInt(ReadConfig.getInstance().getProperty("port"));//
-			
 			ServerSocket ssk = new ServerSocket(port);
 			
 			System.out.println("服务器启动成功 端口为："+port);
